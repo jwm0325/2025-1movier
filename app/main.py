@@ -1,10 +1,23 @@
 from fastapi import FastAPI
 import uvicorn
 import pandas as pd
+from starlette.middleware.cors import CORSMiddleware
 from resolver import random_items, ramdom_genres_items, ramdom_genres_items_best
 from recommender import item_based_recommendation
 
 app = FastAPI()
+
+origins = [
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"]
+)
 
 @app.get("/")
 async def root():
